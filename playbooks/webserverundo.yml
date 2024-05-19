@@ -1,0 +1,12 @@
+- name: undo webserver
+  hosts: ansible2
+  tasks:
+    - name: remove index.html
+      file:
+        path: /usr/share/nginx/html/index.html
+        state: absent
+    - name: delete nginx service
+      dnf:
+        name: nginx
+        state: absent
+

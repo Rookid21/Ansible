@@ -1,5 +1,5 @@
 ---
-- name: install nginx webserver
+-name: install nginx webserver
   hosts: ansible2
   tasks:
     - name: install nginx, firewalld, nfs and autofs services
