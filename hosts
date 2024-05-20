@@ -1,7 +1,6 @@
 [test]
 ansible1
-ansible2
 
-[webserver]
+[webservers]
 twosloo
-
+ansible2

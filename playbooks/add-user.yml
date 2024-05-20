@@ -1,0 +1,13 @@
+- name: add user webserver
+  hosts: ansible2
+  tasks:
+    - name: creating the {{ user }}
+      user:
+        name: "{{ user }}"
+    - name: adding password to {{ user }}
+      shell: echo {{ pwhash }} | passwd --stdin {{ user }}
+      register: cryptopw
+    - name: debugging
+      debug:
+        var: cryptopw   
+   
