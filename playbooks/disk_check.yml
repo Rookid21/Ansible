@@ -1,0 +1,11 @@
+- name: check if you have a second disk
+  hosts: all
+  tasks:
+    - name: if you have a second disk
+      debug:
+        msg: you have a second disk
+      when: ansible_device_links.ids.sdb is defined
+    - name: you have no second disk
+      debug:
+        msg: you don't have a second disk
+      when: ansible_device_links.ids.sdb is not defined
