@@ -1,0 +1,5 @@
+---
+- name: running the role datecheck
+  hosts: all
+  roles: 
+    - datecheck

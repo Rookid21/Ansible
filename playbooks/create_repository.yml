@@ -1,0 +1,38 @@
+- name: creating custom repo
+  hosts: localhost
+  tasks:
+    - name: install vsftpd
+      dnf: 
+        name:
+          - vsftpd
+          - createrepo_c
+        state: latest
+    - name: enable the service
+      service:
+        name: vsftpd
+        state: started
+        enabled: yes
+    - name: enable ftp on firewall
+      firewalld:
+        service: ftp
+        state: enabled
+        permanent: yes
+
+
+- name: create repo file
+  hosts: localhost
+  tasks:
+    - name: create the file
+      file: 
+        path: /var/ftp/repo
+        state: directory
+    - name: download package
+      yum:
+        name: nmap
+        download_only: yes
+        download_dir: /var/ftp/repo
+    - name: make it a repo
+      command: createrepo /var/ftp/repo
+     
+         
+

@@ -1,0 +1,7 @@
+- name: check nic
+  hosts: ansible2
+  tasks:
+    - name: check if ens34 is present
+      debug:
+        msg: Looks like you have ens18!
+      when: "ansible_default_ipv4.alias == 'ens34'"  

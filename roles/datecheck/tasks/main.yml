@@ -1,0 +1,6 @@
+---
+# tasks file for datecheck
+- name: Current Date File
+  template:
+    src: issue.j2
+    dest: /etc/issue

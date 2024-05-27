@@ -1,0 +1,23 @@
+- name: config repository
+  hosts: all
+  vars:
+    my_package: nmap
+  tasks:
+    - name: connect to local repo
+      yum_repository:
+        name: control
+        file: control
+        description: test
+        baseurl:  ftp://control.example.local/repo/   
+        gpgcheck: no
+    - name: install nmap
+      yum:
+        name: nmap
+        state: present
+    - name: update facts
+      package_facts:
+        manager: auto
+    - name: confirmation
+      debug:
+        var: ansible_facts.packages[my_package]
+      when: my_package in ansible_facts.packages
