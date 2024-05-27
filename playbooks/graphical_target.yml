@@ -1,0 +1,24 @@
+- name: change default to graphical target
+  hosts: ansible1
+  vars:
+    default_target: graphical.target
+  tasks:
+    - name: get current target
+      command:
+        cmd: systemctl get-default
+      changed_when: false
+      register: default
+    - name: set the default target
+      command:
+        cmd: systemctl set-default {{ default_target }}
+      when: default_target not in default['stdout']
+      notify: 
+        - reboot_server
+        - print_message
+  handlers:
+    - name: reboot_server
+      reboot:
+        reboot_timeout: 3600
+    - name: print_message
+      debug:
+        msg: server has rebooted

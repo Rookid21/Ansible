@@ -1,0 +1,21 @@
+- name: change target to multi-user and reboot
+  hosts: ansible1
+  vars:
+    default_target: multi-user.target
+  tasks:
+    - name: confirm current target
+      command: 
+        cmd: systemctl get-default
+      changed_when: false
+      register: default
+    - name: set the default target
+      command:
+        cmd: systemctl set-default {{ default_target }}
+      when: default_target not in default['stdout']
+      notify: reboot_server
+
+  handlers:
+    - name: reboot_server
+      reboot:
+        test_command: uptime
+        reboot_timeout: 300

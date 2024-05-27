@@ -1,0 +1,8 @@
+- name: remove cron job
+  hosts: ansible1
+  tasks:
+    - name: remove cron job hello
+      cron:
+        name: remove cron
+        cron_file: hello
+        state: absent

@@ -1,0 +1,12 @@
+- name: hello in file /tmp/hello
+  hosts: ansible1
+  tasks:
+    - name: run the cron job
+      cron:
+        name: yum autoupdate"
+        minute: "5"
+        user: ansible
+        job: echo "hello" >> /tmp/hello
+        cron_file: hello
+        state: present
+

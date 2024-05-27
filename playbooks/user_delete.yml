@@ -1,0 +1,12 @@
+- name: delete user
+  hosts: ansible1
+  vars_prompt:
+    - name: username
+      prompt: What is your username of the user you want to delete?
+      private: false
+  tasks:
+    - name:
+      user: 
+        name: "{{ username }}"
+        state: absent
+        remove: yes
