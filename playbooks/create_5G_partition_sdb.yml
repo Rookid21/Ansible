@@ -1,0 +1,11 @@
+- name: create 5g partition 
+  hosts: ansible1
+  tasks:
+    - name: create the partition
+      parted:
+        device: /dev/sdb
+        number: 1
+        state: present
+        fs_type: ext4
+        part_end: 5GiB
+   

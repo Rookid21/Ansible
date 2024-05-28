@@ -1,0 +1,52 @@
+- name: managing storage
+  hosts: all
+  vars: 
+    second_disk: /dev/sdb
+  tasks:
+    - name: second disk check
+      debug:
+        msg: second hard disk not present
+      when: ansible_devices.sdb is not defined
+    - name: create a partition using all available disk space
+      parted:
+        device: /dev/sdb
+        number: 1
+        state: present
+      when:  ansible_devices.sdb is defined
+    - name: create the LVM VG
+      lvg:
+        vg: vgfiles
+        pvs: /dev/sdb1
+        pvresize: true
+        state: active
+      when: ansible_devices.sdb is defined
+    - name: run setup so we cab update the module facts
+      setup:
+    - name: get vg size and convert to int
+      set_fact:
+        vgsize: "{{ ansible_facts['lvm']['vgs']['vgfiles']['size_g'] | int }}"
+    - name: creating lv if vg is greater than 5g
+      lvol:
+        vg: vgfiles
+        lv: lvfiles
+        size: 5g
+      when: vgsize | int > 5
+    - name: creating lv if vg is smaller than 5g
+      lvol:
+        vg: vgfiles
+        lv: lvfiles
+        size: 3g
+      when: vgsize | int < 5
+    - name: format volume with XFS
+      filesystem:
+        dev: /dev/vgfiles/lvfiles
+        fstype: xfs
+    - name: mount fs on /files
+      mount:
+        src: /dev/vgfiles/lvfiles
+        path: /files
+        fstype: xfs
+        state: present
+
+      
+     
