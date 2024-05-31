@@ -1,0 +1,12 @@
+- name: configure second nic
+  hosts: ansible2
+  vars:
+    network_connection:
+    - name: ens19
+      type: ethernet
+      ip:
+        address:
+          -  fc00::202/64
+  roles:
+    - rhel-system-roles.network
+    

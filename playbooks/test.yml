@@ -1,0 +1,7 @@
+- name: set hostname to {{ inventory_hostname }}
+  hosts: all
+  tasks:
+    - name: set the hostname
+      command: hostnamectl set-hostname {{ inventory_hostname }}
+    - name: restart host
+      command: reboot
