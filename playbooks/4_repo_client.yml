@@ -1,0 +1,11 @@
+---
+- name: obtain repo for clients
+  hosts: servers
+  tasks:
+    - name: add repo
+      yum_repository:
+        name: repository
+        description: EPEL YUM repo
+        file: repository
+        baseurl: https://test.example.local/reposerver
+        gpgcheck: no
