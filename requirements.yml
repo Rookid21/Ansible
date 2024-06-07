@@ -1,2 +1,10 @@
-- src: geerlingguy.nginx
-- src: geerlingguy.docker
+roles:
+  - src: geerlingguy.nginx
+    name: nginx
+
+  - src: geerlingguy.docker
+    name: docker
+
+collections:
+  - name: ansible.posix
+  - name: community.general

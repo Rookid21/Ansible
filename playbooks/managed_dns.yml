@@ -1,0 +1,9 @@
+---
+- name: DNS for secure server
+  hosts: dev test
+  tasks:
+    - name: run dns template
+      template:
+        src: all_servers_dns.j2
+        dest: /etc/hosts
+
