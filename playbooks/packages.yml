@@ -1,0 +1,18 @@
+---
+- name: install common packages
+  hosts: all
+  tasks:
+    - name: install common packages for RHEL
+      dnf:
+        name: "{{ item }}"
+        state: latest   
+      loop:
+        - vim
+        - nmap
+        - wget
+        - docker
+        - net-tools
+        - traceroute
+        - git
+        - whois
+        - iptables

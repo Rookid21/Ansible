@@ -1,0 +1,9 @@
+---
+- name: update & upgrade all managed hosts
+  hosts: all
+  tasks:
+    - name: Upgrade all packages
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+
