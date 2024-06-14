@@ -16,3 +16,4 @@
         - git
         - whois
         - iptables
+    - name: check if services are installed
