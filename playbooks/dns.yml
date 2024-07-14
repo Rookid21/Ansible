@@ -1,6 +1,6 @@
 ---
 - name: DNS for secure server
-  hosts: dev test
+  hosts: dev test servers
   tasks:
     - name: run dns template
       template:

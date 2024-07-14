@@ -1,9 +1,17 @@
 ---
-- name: update & upgrade all managed hosts
+- name: Update and upgrade systems
   hosts: all
-  tasks:
-    - name: Upgrade all packages
-      ansible.builtin.dnf:
-        name: "*"
-        state: latest
+  become: yes  # Run tasks with root privileges
 
+  tasks:
+    - name: Update and upgrade Debian/Ubuntu systems
+      apt:
+        update_cache: yes
+        upgrade: dist
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+    - name: Update and upgrade RHEL/CentOS systems
+      dnf:
+        name: '*'
+        state: latest
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'

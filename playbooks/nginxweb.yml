@@ -1,0 +1,37 @@
+---
+- name: deploy an nginx webserver
+  hosts: test
+  tasks:
+    - name: docker dependencies 
+      apt:
+        name: python3-docker
+        state: present
+    - name: docker repo
+      apt_repository:
+        repo: deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+        state: present
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+    - name: pull nginx image
+      community.docker.docker_image:
+        name: nginx:latest
+        source: pull
+    - name: docker network
+      community.docker.docker_network:
+        name: network30
+        driver: bridge
+        ipam_config:
+          - subnet: "192.168.30.0/24"
+    - name: run nginx container
+      community.docker.docker_container:
+        name: nginx_web
+        image: nginx:latest
+        networks:
+          - name: network30
+            ipv4_address: "192.168.30.2"
+        ports:
+          - "8082:80"
+          - "444:443"
+        restart_policy: always

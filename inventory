@@ -1,10 +1,14 @@
+[nodes]
+node1
+node2
+
+[servers]
+vpnsvr1
+
 [dev]
 
 [test]
-twosloo
+websvrt1
 
 [prod]
-
-[ceph]
-
 
