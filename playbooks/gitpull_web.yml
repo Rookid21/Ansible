@@ -1,0 +1,14 @@
+---
+- name: clone github repo
+  hosts: websvrt1
+  tasks:
+    - name: webserver directory
+      file:
+        path: /home/ansible/twosloo
+        state: directory
+        mode: 0755
+    - name: Git clone repository
+      ansible.builtin.git:
+        repo: https://github.com/Rookid21/twosloo_website.git
+        dest: /home/ansible/twosloo
+
