@@ -1,0 +1,10 @@
+---
+- name: reboot websvr
+  hosts: test
+  tasks:
+    - name: reboot server
+      ansible.builtin.reboot:
+    - name: compose the nginx proxy file
+      community.docker.docker_compose_v2:
+        project_src: /root/nginxproxy
+        state: present

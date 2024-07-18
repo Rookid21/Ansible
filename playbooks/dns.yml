@@ -4,6 +4,7 @@
   tasks:
     - name: run dns template
       template:
-        src: all_servers_dns.j2
+        src: dns.j2
         dest: /etc/hosts
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
 

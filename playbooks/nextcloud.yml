@@ -1,0 +1,13 @@
+---
+- name: nextcloud docker deployment
+  hosts: test
+  tasks:
+    - name: pull nextcloud image
+      community.docker.docker_image:
+        name: nextcloud:latest
+        source: pull
+    - name: run nextcloud container
+      community.docker.docker_container:
+        name: nginx_web
+        image: nginx:latest
+

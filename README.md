@@ -7,4 +7,5 @@ The playbooks used to managed my infrastructure. The playbooks will be used for 
 3. Install common packages
 4. Clone Github Repo
 5. Deploy Nginx webserver and link to Github Repo
+6. Deploy Docker Containers such as Proxy, Nextcloud,
 

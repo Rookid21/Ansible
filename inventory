@@ -4,11 +4,15 @@ node2
 
 [servers]
 vpnsvr1
+ansible
 
 [dev]
 
 [test]
 websvrt1
+websvrt2
 
 [prod]
+websvrp1
+websvrp2
 

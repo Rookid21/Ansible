@@ -1,6 +1,6 @@
 ---
 - name: install common packages
-  hosts: all
+  hosts: test
   tasks:
     - name: install common packages for RHEL
       dnf:
@@ -16,7 +16,23 @@
         - git
         - whois
         - iptables
-    - name: check if services are installed
-
-
-
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+    - name: install common packages for Ubuntu/Debian
+      apt:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - docker-ce
+        - nfs-common
+        - openssh-server
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+    - name: docker dependencies
+      apt:
+        name: python3-docker
+        state: present
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+    - name: docker repo
+      apt_repository:
+        repo: deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+        state: present
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'

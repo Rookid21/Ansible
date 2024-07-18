@@ -7,7 +7,7 @@
         path: /home/ansible/twosloo
         state: directory
         mode: 0755
-    - name: Git clone repository
+    - name: git clone repository
       ansible.builtin.git:
         repo: https://github.com/Rookid21/twosloo_website.git
         dest: /home/ansible/twosloo
